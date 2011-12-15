@@ -4,8 +4,7 @@
  */
 
 var express = require('express')
-  , routes = require('./routes')
-  , stache = require('stache')
+  , stache = require('stache');
 
 var app = module.exports = express.createServer();
 
@@ -31,16 +30,9 @@ app.configure('production', function(){
 });
 
 // Routes
-app.get('/', routes.index);
-
-/*
-app.get('/hello', routes.hello);
-*/
-
-// code
-app.get('/hello', function(req, res) {
-    res.render('hello', {title: "Hello", name: 'Test'});
-});
+app.get('/', require("./routes/index").index);
+app.get('/hello', require("./routes/hello").hello);
+app.get('/tag/:id', require("./routes/tag").tag);
 
 app.listen(3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
